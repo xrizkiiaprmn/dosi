@@ -19,7 +19,7 @@ npm i
 ```
 
 ## Usage
-- Fill dosi session account x in file sessions.txt
+- Fill dosi session account in file sessions.txt
 - For multiple account, separate them with enter
 - Run
 ```bash

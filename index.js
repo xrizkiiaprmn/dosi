@@ -62,6 +62,9 @@ const dosiBot = new Dosi();
 const sessions = dosiBot.getSession();
 
 while (true) {
+  console.info(
+    "Dosi Auto Claim DON & Join Adventure by xrizkiiaprmn.\nrepo : https://github.com/xrizkiiaprmn/dosi"
+  );
   for (let i = 0; i < sessions.length; i++) {
     const membership = await dosiBot.getMembership(sessions[i]);
     console.info(
