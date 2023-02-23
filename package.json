@@ -1,0 +1,16 @@
+{
+  "name": "dosi-auto",
+  "version": "1.0.0",
+  "description": "Dosi Auto Claim DON & Join Adventure",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": ["dosi", "auto", "dosi auto", "auto claim"],
+  "author": "xrizkiiaprmn",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  }
+}
