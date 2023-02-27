@@ -7,10 +7,16 @@
   "scripts": {
     "start": "node ."
   },
-  "keywords": ["dosi", "auto", "dosi auto", "auto claim"],
+  "keywords": [
+    "dosi",
+    "auto",
+    "dosi auto",
+    "auto claim"
+  ],
   "author": "xrizkiiaprmn",
   "license": "ISC",
   "dependencies": {
+    "moment": "^2.29.4",
     "node-fetch": "^3.3.0"
   }
 }

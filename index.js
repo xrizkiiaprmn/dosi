@@ -1,12 +1,13 @@
 import fetch from "node-fetch";
 import fs from "fs";
+import moment from "moment";
 
 class Dosi {
   baseUrl = "https://citizen.dosi.world/api/citizen/v1/";
   keyCookie = "DOSI_SES";
 
   async sleep(ms) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
   }
@@ -65,6 +66,7 @@ while (true) {
   console.info(
     "Dosi Auto Claim DON & Join Adventure by xrizkiiaprmn.\nrepo : https://github.com/xrizkiiaprmn/dosi"
   );
+  console.info(`\nDate\t: ${moment().format("DD-MM-YYYY hh:mm:ss")}`);
   for (let i = 0; i < sessions.length; i++) {
     const membership = await dosiBot.getMembership(sessions[i]);
     console.info(
@@ -79,7 +81,7 @@ while (true) {
       continue;
     }
 
-    console.info("\nSedang Melakukan Check In...");
+    console.info("Sedang Melakukan Check In...");
     const checkIn = await dosiBot.checkIn(sessions[i]);
     if (checkIn.success) {
       console.info("Check In berhasil!");
@@ -88,7 +90,7 @@ while (true) {
     }
 
     const balance = await dosiBot.getBalance(sessions[i]);
-    console.info(`Current Balance\t: ${balance.amount} ${balance.assetType}\n`);
+    console.info(`Current Balance\t: ${balance.amount} ${balance.assetType}`);
 
     console.info("Sedang mencoba join adventure...");
     const checkSmsAgreement = await dosiBot.getSmsAgreement(sessions[i]);
@@ -108,5 +110,5 @@ while (true) {
     );
   }
 
-  await dosiBot.sleep(86405000); // Sleep 24 Jam
+  await dosiBot.sleep(86400000); // Sleep 24 Hours
 }
