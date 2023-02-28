@@ -57,6 +57,8 @@ class Dosi {
   async joinAdventure(session) {
     return await this.fetching("adventures/21/participation", session, "POST");
   }
+
+  async fragmentFetching() {}
 }
 
 const dosiBot = new Dosi();
@@ -82,11 +84,16 @@ while (true) {
     }
 
     console.info("Sedang Melakukan Check In...");
-    const checkIn = await dosiBot.checkIn(sessions[i]);
-    if (checkIn.success) {
-      console.info("Check In berhasil!");
-    } else {
-      console.info("Check In gagal!");
+    while (true) {
+      try {
+        const checkIn = await dosiBot.checkIn(sessions[i]);
+        checkIn.success
+          ? console.info("Check In berhasil!")
+          : console.info("Check In gagal!");
+        break;
+      } catch (e) {
+        continue;
+      }
     }
 
     const balance = await dosiBot.getBalance(sessions[i]);
