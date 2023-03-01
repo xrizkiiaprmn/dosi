@@ -84,7 +84,7 @@ while (true) {
     }
 
     console.info("Sedang Melakukan Check In...");
-    while (true) {
+    looptry: while (true) {
       try {
         const checkIn = await dosiBot.checkIn(sessions[i]);
         checkIn.success
@@ -92,7 +92,7 @@ while (true) {
           : console.info("Check In gagal!");
         break;
       } catch (e) {
-        continue;
+        continue looptry;
       }
     }
 
