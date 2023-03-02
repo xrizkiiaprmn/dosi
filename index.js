@@ -55,7 +55,7 @@ class Dosi {
   }
 
   async joinAdventure(session) {
-    return await this.fetching("adventures/21/participation", session, "POST");
+    return await this.fetching("adventures/22/participation", session, "POST");
   }
 
   async fragmentFetching() {}
@@ -64,10 +64,11 @@ class Dosi {
 const dosiBot = new Dosi();
 const sessions = dosiBot.getSession();
 
+console.info(
+  "Dosi Auto Claim DON & Join Adventure by xrizkiiaprmn.\nrepo : https://github.com/xrizkiiaprmn/dosi"
+);
+
 while (true) {
-  console.info(
-    "Dosi Auto Claim DON & Join Adventure by xrizkiiaprmn.\nrepo : https://github.com/xrizkiiaprmn/dosi"
-  );
   console.info(`\nDate\t: ${moment().format("DD-MM-YYYY hh:mm:ss")}`);
   for (let i = 0; i < sessions.length; i++) {
     const membership = await dosiBot.getMembership(sessions[i]);
@@ -79,20 +80,18 @@ while (true) {
       `Check In Status\t: ${checkinStatus ? "Tersedia" : "Tidak Tersedia"}`
     );
 
-    if (!checkinStatus) {
-      continue;
-    }
-
-    console.info("Sedang Melakukan Check In...");
-    looptry: while (true) {
-      try {
-        const checkIn = await dosiBot.checkIn(sessions[i]);
-        checkIn.success
-          ? console.info("Check In berhasil!")
-          : console.info("Check In gagal!");
-        break;
-      } catch (e) {
-        continue looptry;
+    if (checkinStatus) {
+      console.info("Sedang Melakukan Check In...");
+      while (true) {
+        try {
+          const checkIn = await dosiBot.checkIn(sessions[i]);
+          checkIn.success
+            ? console.info("Check In berhasil!")
+            : console.info("Check In gagal!");
+          break;
+        } catch (e) {
+          continue;
+        }
       }
     }
 
