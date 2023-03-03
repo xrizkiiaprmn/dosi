@@ -40,11 +40,10 @@ class Dosi {
     );
   }
   async getEmail(session) {
-    return await this.fetching("/login/status?loginFinishUri=https:/>
+    return await this.fetching("/login/status?loginFinishUri=https://citizen.dosi.world/auth/verify&logoutFinishUri=https://citizen.dosi.world/auth/logout", session, "GET").then(
       (result) => result.email
     );
   }
-
   async checkIn(session) {
     return await this.fetching(`events/check-in`, session, "POST");
   }
@@ -60,7 +59,7 @@ class Dosi {
   }
 
   async joinAdventure(session) {
-    const Adv = await this.fetching("adventures/", session, "GET").t>
+    const Adv = await this.fetching("adventures/", session, "GET").then(
       (result) => result.adventureList[0].id
     );
     return await this.fetching("adventures/" + Adv + "/participation>
