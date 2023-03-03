@@ -62,9 +62,8 @@ class Dosi {
     const Adv = await this.fetching("adventures/", session, "GET").then(
       (result) => result.adventureList[0].id
     );
-    return await this.fetching("adventures/" + Adv + "/participation>
-  }
-
+    return await this.fetching("adventures/" + Adv + "/participation", session, "POST");
+  }  
   async fragmentFetching() {}
 }
 
