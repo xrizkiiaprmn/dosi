@@ -39,7 +39,11 @@ class Dosi {
       (result) => result.eventList[0].isJoinable
     );
   }
-
+  async getEmail(session) {
+    return await this.fetching("/login/status?loginFinishUri=https://citizen.dosi.world/auth/verify&logoutFinishUri=https://citizen.dosi.world/auth/logout", session, "GET").then(
+      (result) => result.email
+    );
+  }
   async checkIn(session) {
     return await this.fetching(`events/check-in`, session, "POST");
   }
@@ -55,9 +59,11 @@ class Dosi {
   }
 
   async joinAdventure(session) {
-    return await this.fetching("adventures/22/participation", session, "POST");
-  }
-
+    const Adv = await this.fetching("adventures/", session, "GET").then(
+      (result) => result.adventureList[0].id
+    );
+    return await this.fetching("adventures/" + Adv + "/participation", session, "POST");
+  }  
   async fragmentFetching() {}
 }
 
@@ -74,6 +80,9 @@ while (true) {
     const membership = await dosiBot.getMembership(sessions[i]);
     console.info(
       `\nAccount level\t: ${membership[0].level}\nNFT Collection\t: ${membership[0].nftCount}\nBalance\t\t: ${membership[1].amount} ${membership[1].assetType}`
+    );
+    const email = await dosiBot.getEmail(sessions[i]);
+    console.info(`Your Email\t: ${email}`
     );
     const checkinStatus = await dosiBot.getEvents(sessions[i]);
     console.info(
@@ -115,6 +124,7 @@ while (true) {
       `Berhasil join adventure! total participations : ${tryJoinAdventure.currentCount}`
     );
   }
-
+  console.info("==================================");
+  console.info("Sukses, Cooldown 24 Jam, OK bro!!");
   await dosiBot.sleep(86400000); // Sleep 24 Hours
 }
