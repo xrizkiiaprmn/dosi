@@ -29,9 +29,9 @@ class Dosi {
 
   async getMembership(session) {
     const memberInfo = await this.fetching(`membership`, session, "GET");
-    const BalanceInfo = await this.getBalance(session);
+    const balanceInfo = await this.getBalance(session);
 
-    return [memberInfo, BalanceInfo];
+    return [memberInfo, balanceInfo];
   }
 
   async getEvents(session) {
@@ -40,9 +40,11 @@ class Dosi {
     );
   }
   async getEmail(session) {
-    return await this.fetching("/login/status?loginFinishUri=https://citizen.dosi.world/auth/verify&logoutFinishUri=https://citizen.dosi.world/auth/logout", session, "GET").then(
-      (result) => result.email
-    );
+    return await this.fetching(
+      "/login/status?loginFinishUri=https://citizen.dosi.world/auth/verify&logoutFinishUri=https://citizen.dosi.world/auth/logout",
+      session,
+      "GET"
+    ).then((result) => result.email);
   }
   async checkIn(session) {
     return await this.fetching(`events/check-in`, session, "POST");
@@ -59,12 +61,15 @@ class Dosi {
   }
 
   async joinAdventure(session) {
-    const Adv = await this.fetching("adventures/", session, "GET").then(
+    const adventureId = await this.fetching("adventures/", session, "GET").then(
       (result) => result.adventureList[0].id
     );
-    return await this.fetching("adventures/" + Adv + "/participation", session, "POST");
-  }  
-  async fragmentFetching() {}
+    return await this.fetching(
+      "adventures/" + adventureId + "/participation",
+      session,
+      "POST"
+    );
+  }
 }
 
 const dosiBot = new Dosi();
@@ -77,13 +82,14 @@ console.info(
 while (true) {
   console.info(`\nDate\t: ${moment().format("DD-MM-YYYY hh:mm:ss")}`);
   for (let i = 0; i < sessions.length; i++) {
+    const email = await dosiBot.getEmail(sessions[i]);
+    console.info(`Your Email\t: ${email}`);
+
     const membership = await dosiBot.getMembership(sessions[i]);
     console.info(
       `\nAccount level\t: ${membership[0].level}\nNFT Collection\t: ${membership[0].nftCount}\nBalance\t\t: ${membership[1].amount} ${membership[1].assetType}`
     );
-    const email = await dosiBot.getEmail(sessions[i]);
-    console.info(`Your Email\t: ${email}`
-    );
+
     const checkinStatus = await dosiBot.getEvents(sessions[i]);
     console.info(
       `Check In Status\t: ${checkinStatus ? "Tersedia" : "Tidak Tersedia"}`
@@ -97,15 +103,17 @@ while (true) {
           checkIn.success
             ? console.info("Check In berhasil!")
             : console.info("Check In gagal!");
+
+          const balance = await dosiBot.getBalance(sessions[i]);
+          console.info(
+            `Current Balance\t: ${balance.amount} ${balance.assetType}`
+          );
           break;
         } catch (e) {
           continue;
         }
       }
     }
-
-    const balance = await dosiBot.getBalance(sessions[i]);
-    console.info(`Current Balance\t: ${balance.amount} ${balance.assetType}`);
 
     console.info("Sedang mencoba join adventure...");
     const checkSmsAgreement = await dosiBot.getSmsAgreement(sessions[i]);
