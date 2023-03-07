@@ -83,11 +83,11 @@ while (true) {
   console.info(`\nDate\t: ${moment().format("DD-MM-YYYY hh:mm:ss")}`);
   for (let i = 0; i < sessions.length; i++) {
     const email = await dosiBot.getEmail(sessions[i]);
-    console.info(`Your Email\t: ${email}`);
+    console.info(`\nYour Email\t: ${email}`);
 
     const membership = await dosiBot.getMembership(sessions[i]);
     console.info(
-      `\nAccount level\t: ${membership[0].level}\nNFT Collection\t: ${membership[0].nftCount}\nBalance\t\t: ${membership[1].amount} ${membership[1].assetType}`
+      `Account level\t: ${membership[0].level}\nNFT Collection\t: ${membership[0].nftCount}\nBalance\t\t: ${membership[1].amount} ${membership[1].assetType}`
     );
 
     const checkinStatus = await dosiBot.getEvents(sessions[i]);
