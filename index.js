@@ -115,24 +115,27 @@ while (true) {
       }
     }
 
-    console.info("Sedang mencoba join adventure...");
-    const checkSmsAgreement = await dosiBot.getSmsAgreement(sessions[i]);
-    if (!checkSmsAgreement) {
-      console.info("Gagal join adventure, sms verification is off!");
-      continue;
-    }
+    while (true) {
+      console.info("Sedang mencoba join adventure...");
+      const checkSmsAgreement = await dosiBot.getSmsAgreement(sessions[i]);
+      if (!checkSmsAgreement) {
+        console.info("Gagal join adventure, sms verification is off!");
+        break;
+      }
 
-    const tryJoinAdventure = await dosiBot.joinAdventure(sessions[i]);
-    if (!tryJoinAdventure.currentCount) {
-      console.info("Gagal join adventure, insufficient balance!");
-      continue;
+      const tryJoinAdventure = await dosiBot.joinAdventure(sessions[i]);
+      if (!tryJoinAdventure.currentCount) {
+        console.info("Gagal join adventure, insufficient balance!");
+        break;
+      } else {
+        console.info(
+          `Berhasil join adventure! total participations : ${tryJoinAdventure.currentCount}`
+        );
+      }
     }
-
-    console.info(
-      `Berhasil join adventure! total participations : ${tryJoinAdventure.currentCount}`
-    );
   }
-  console.info("==================================");
-  console.info("Sukses, Cooldown 24 Jam, OK bro!!");
+
+  console.info("=======================================");
+  console.info("  Sukses, Cooldown 24 Jam, OK bro!!!");
   await dosiBot.sleep(86400000); // Sleep 24 Hours
 }
