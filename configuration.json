@@ -1,0 +1,7 @@
+[
+    {
+        "webhookUrl":"discord-webhookUrl-here",
+        "messageId": "discord-messageId-here",
+        "session": "dosi-account-session-here"
+    }
+]

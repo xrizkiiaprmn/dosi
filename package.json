@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.29.4",
-    "node-fetch": "^3.3.0"
+    "node-fetch": "^3.3.0",
+    "os-utils": "^0.0.14"
   }
 }
