@@ -19,8 +19,23 @@ npm i
 ```
 
 ## Usage
-- Fill dosi session account in file sessions.txt, in session property
-- For multiple account, separate them with enter
+- Fill dosi session account in file configuration.json, in session property
+- For multiple session, add a new object with property session and fill them
+```javascript
+[
+    {
+        "webhookUrl":"discord-webhookUrl-here",
+        "messageId": "discord-messageId-here",
+        "session": "dosi-account-session-here"
+    },
+    {
+        // "webhookUrl":"discord-webhookUrl-here", -- optional if webhook disabled
+        // "messageId": "discord-messageId-here", -- optional if webhook disabled
+        "session": "dosi-account-session-here"
+    },
+    // add other here 
+]
+```
 - Run
 ```bash
 # use
