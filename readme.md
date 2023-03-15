@@ -19,24 +19,15 @@ npm i
 ```
 
 ## Usage
-- Fill dosi session account in file configuration.json, in session property
-- For multiple session, add a new object with property session and fill them
+- First configure automation in file configuration.json
 ```javascript
-[
-    {
-        "webhookUrl":"discord-webhookUrl-here",
-        "messageId": "discord-messageId-here",
-        "session": "dosi-account-session-here"
-    },
-    {
-        // "webhookUrl":"discord-webhookUrl-here", -- optional if webhook disabled
-        // "messageId": "discord-messageId-here", -- optional if webhook disabled
-        "session": "dosi-account-session-here"
-    },
-    // add other here 
-]
+{
+    "enableWebhook": false, // On or Off Discord Webhook Logs
+    "webhookUrl": "webhook-url-here", // Webhook of Discord Channel to receive Logs Automation | Fill if enableWebhook is true, leave it if false
+    "sessions": ["session1-here", "session2-here", "etc"] // Multiple session account
+}
 ```
-- Run
+- After configure, just run
 ```bash
 # use
 yarn start
@@ -45,12 +36,4 @@ yarn start
 npm run start
 ```
 - Done, auto claim every 24 Hours
-- Please give me stars 
-
-## Update Feature (Send Log to Webhook Discord)
-- Send Update Account Information (Balance and Adventure Count) in Discord using webhook
-- Interest to use it? Just set value for variable enableWebhook in line 9 with true
-- Next step, you must configure your webhook to receive update information account with edit value in line 3 configurationWebhook.js with your webhook url. And run it
-- If success, you can find in your channel discord the message of webhook (bot). And copy message ID
-- After that, you must fill your webhook url and message ID in configuration.json
-- Just run it and see update in your channel
+- Please give me stars
